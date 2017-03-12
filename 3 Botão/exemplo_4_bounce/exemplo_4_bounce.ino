@@ -9,14 +9,14 @@ void setup()
   pinMode(ledPin, OUTPUT);
   pinMode(buttonPin, INPUT);
 	digitalWrite(buttonPin, HIGH);//Ativa o resitor de pull up
-	bouncer.attach( inputPin );
+	bouncer.attach(buttonPin);
 	bouncer.interval(5);
 }
 int flag = 0;
 void loop()
 { 
-  debouncer.update();
-  flag = debouncer.read();
+  bouncer.update();
+  flag = bouncer.read();
   
   if(flag)
     digitalWrite(ledPin,HIGH);
