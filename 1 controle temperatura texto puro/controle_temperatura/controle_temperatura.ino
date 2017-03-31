@@ -9,15 +9,15 @@
 #define TermoDO 6
 //Constantes
 const float ganhoProporcional = 1.5;//Variável de controle, alterar para obter melhores resultados
-const float temperaturaMinima = 0;//Temperatura minima arbritária
 const unsigned PWMMin=0, PWMMax=255;//Valor minimo e máximo de PWM
 //Variáveis
 unsigned potenciaSoldador = 0;
 float temperaturaLida,
       temperaturaSaida,
       erro, //variável de controle
+      temperaturaMinima, //Temperatura minima arbritária
       temperaturaMaxima,//Temperatura máxima estimada do soldador
-      temperaturaDesejada = 100;//Pode ser alterada via terminal ou por um potenciômetro
+      temperaturaDesejada = 250;//Pode ser alterada via terminal ou por um potenciômetro
 //Inicialização de bibliotecas
 MAX6675 termopar(TermoCLK, TermoCS, TermoDO);
 
@@ -29,7 +29,8 @@ void setup(){
   pinMode(ReleGnd, OUTPUT); digitalWrite(ReleGnd, LOW);
   delay(500);
 
-  temperaturaMaxima = temperaturaDesejada - temperaturaDesejada*0.3; //20% a mais da temperatura desejada
+  temperaturaMinima = 20;//Ambiente aproximada
+  temperaturaMaxima = temperaturaDesejada + temperaturaDesejada*0.10; //10% a mais da temperatura desejada
 }
 
 void loop(){
